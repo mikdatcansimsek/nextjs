@@ -1,0 +1,21 @@
+{
+    "cookies": {},
+    "geo": {},
+    "ip": "undefined",
+    "url": "http: //localhost:3000/favicon.ico",
+    "bodyUsed": false,
+    "nextUrl": {
+        "href": "http: //localhost:3000/favicon.ico",
+        "origin": "http: //localhost:3000",
+        "protocol": "http:",
+        "username": "",
+        "password": "",
+        "host": "localhost: 3000",
+        "hostname": "localhost",
+        "port": "3000",
+        "pathname": "/favicon.ico",
+        "search": "",
+        "searchParams": {},
+        "hash": ""
+    }
+}
