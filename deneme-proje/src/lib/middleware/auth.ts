@@ -17,3 +17,9 @@ export function withAuth(handler: Function) {
     return handler(request, context);
   };
 }
+
+export function withRateLimit(handler: Function, limit: number = 10) {
+  return async (request: NextRequest, context: any) => {
+    return handler(request, context);
+  };
+}

@@ -1,38 +1,35 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
+import { withAuth, withRateLimit } from '@/lib/middleware/auth';
 
-export async function GET() {
+async function getUsersHandler(request: NextRequest) {
   const users = [
     { id: '1', name: 'John Doe', email: 'john@example.com' },
     { id: '2', name: 'Jane Smith', email: 'jane@example.com' }
   ];
   
-  return NextResponse.json({ 
+  return Response.json({ 
     success: true, 
     data: users 
   });
 }
 
-export async function POST(request: NextRequest) {
+async function createUserHandler(request: NextRequest) {
+  const user = (request as any).user;
   const body = await request.json();
-  const { name, email } = body;
-  
-  if (!name || !email) {
-    return NextResponse.json(
-      { success: false, message: 'Name and email required' },
-      { status: 400 }
-    );
-  }
   
   const newUser = {
     id: Date.now().toString(),
-    name,
-    email,
+    ...body,
+    createdBy: user.id,
     createdAt: new Date().toISOString()
   };
   
-  return NextResponse.json({
+  return Response.json({
     success: true,
     data: newUser,
     message: 'User created successfully'
   }, { status: 201 });
 }
+
+export const GET = withRateLimit(getUsersHandler, 50);
+export const POST = withRateLimit(withAuth(createUserHandler), 10);
